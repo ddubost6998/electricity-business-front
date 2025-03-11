@@ -5,7 +5,7 @@ export interface UserHttp {
   firstname: string;
   lastname: string;
   phone: string;
-  birthdate: string;
+  birthdate: Date;
   verificationCode: string;
   isVerified: boolean;
   address: string;
@@ -18,7 +18,7 @@ export interface User {
   firstname: string;
   lastname: string;
   phone: string;
-  birthdate: string;
+  birthdate: Date;
   verificationCode: string;
   isVerified: boolean;
   address: string;
