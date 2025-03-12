@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   async onSubmitLogin (): Promise<void> {
     if(this.form.invalid || this.requestOnGoing) return
 
-    const { email, password, remember } = this.form.value
+    const { email} = this.form.value
     this.errorMsg = undefined
     this.requestOnGoing = true
 

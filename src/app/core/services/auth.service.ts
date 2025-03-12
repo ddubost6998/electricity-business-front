@@ -1,8 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
-import {User, UserHttp} from '../../entities/user.entity';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { User, UserHttp } from '../../entities/user.entity';
+import { jwtDecode, JwtPayload } from "jwt-decode";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
@@ -11,31 +13,20 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser: Observable<User | null>;
 
-  private apiUrl = '/api/auth';
+  private apiUrl = environment.apiUrl + '/auth';
 
   constructor(private http: HttpClient) {
-    // @ts-ignore
     this.currentUserSubject = new BehaviorSubject<User | null>(this.getUserFromToken());
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  private getUserFromToken(): {
-    id: any;
-    email: any;
-    firstname: any;
-    lastname: any;
-    birthdate: Date;
-    isVerified: boolean;
-    address: any;
-    phone: any;
-    password: string;
-    verificationCode: string
-  } | null {
+  private getUserFromToken(): User | null {
     const token = this.getToken();
     if (token) {
       try {
-        const decodedToken: any = token;
-        return {
+        const decodedToken: any = jwtDecode(token);
+
+        const user: User = {
           id: decodedToken.sub,
           email: decodedToken.email,
           firstname: decodedToken.firstname,
@@ -43,10 +34,10 @@ export class AuthService {
           birthdate: new Date(decodedToken.birthdate),
           isVerified: true,
           address: decodedToken.address,
-          phone: decodedToken.phone,
-          password: '',
-          verificationCode: ''
+          phone: decodedToken.phone
         };
+
+        return user;
       } catch (error) {
         console.error('Error decoding token:', error);
         return null;
@@ -54,7 +45,6 @@ export class AuthService {
     }
     return null;
   }
-
   isAuthenticated(): Observable<boolean> {
     return this.currentUser.pipe(map(user => !!user));
   }
@@ -63,9 +53,16 @@ export class AuthService {
     return this.getCookie('authToken');
   }
 
+  setToken(token: string, rememberMe: boolean = false): void {
+    const decodedToken: JwtPayload = jwtDecode(token);
+
+    const expires = decodedToken.exp ? new Date(decodedToken.exp * 1000) : new Date(Date.now() + 3600 * 1000); // Default 1 hour
+
+    document.cookie = `authToken=${token}; expires=${expires.toUTCString()}; path=/; Secure; HttpOnly`;
+  }
+
   removeToken(): void {
-    document.cookie =
-      'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; HttpOnly';
+    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; HttpOnly';
     this.currentUserSubject.next(null);
   }
 
@@ -84,15 +81,13 @@ export class AuthService {
     return null;
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, credentials)
+  login(credentials: any): Observable<{ token: string }> {
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials)
       .pipe(
         tap(response => {
-          if (response && response.token) {
-            const user = this.getUserFromToken();
-            // @ts-ignore
-            this.currentUserSubject.next(user);
-          }
+          this.setToken(response.token);
+          const user = this.getUserFromToken();
+          this.currentUserSubject.next(user);
         }),
         catchError(this.handleError)
       );
@@ -102,8 +97,6 @@ export class AuthService {
     return this.http.post<UserHttp>(`${this.apiUrl}/register`, user)
       .pipe(
         map(User.fromHttp),
-        tap( registeredUser => {
-        }),
         catchError(this.handleError)
       );
   }
@@ -112,6 +105,7 @@ export class AuthService {
     this.removeToken();
     this.currentUserSubject.next(null);
   }
+
   verifyEmail(code: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/verify-email`, { code }).pipe(
       catchError(this.handleError)
@@ -119,16 +113,25 @@ export class AuthService {
   }
 
   private handleError(error: any) {
+    let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
+      errorMessage = `Erreur: ${error.error.message}`;
     } else {
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${JSON.stringify(error.error)}`
-      );
+      errorMessage = `Code d'erreur: ${error.status}, Message: ${error.message}`;
+      if (error.status === 400) {
+        errorMessage = "Requête incorrecte. Veuillez vérifier les données saisies.";
+      } else if (error.status === 401) {
+        errorMessage = "Identifiants incorrects.";
+      } else if (error.status === 403) {
+        errorMessage = "Accès refusé.";
+      } else if (error.status === 409){
+        errorMessage = "L'utilisateur existe déja."
+      }
+      else if (error.status === 500) {
+        errorMessage = "Erreur interne du serveur.";
+      }
     }
-    return throwError(
-      () => 'Something bad happened; please try again later.'
-    );
+    console.error(errorMessage);
+    return throwError(() => errorMessage);
   }
 }
