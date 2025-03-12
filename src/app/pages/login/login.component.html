@@ -1,0 +1,53 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Se connecter à mon compte</h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div *ngIf="errorMsg" class="w-full rounded-mb text-red-500 text-sm/6 font-medium mb-4">
+      {{ errorMsg }}
+    </div>
+
+    <form class="space-y-6"
+          [formGroup]="form"
+          (ngSubmit)="onSubmitLogin()">
+      <div>
+        <label for="email" class="block text-sm/6 font-medium text-gray-900">Adresse mail</label>
+        <div class="mt-2">
+          <input type="email" name="email" id="email" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                 formControlName="email">
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="password" class="block text-sm/6 font-medium text-gray-900">Mot de passe</label>
+        </div>
+        <div class="mt-2">
+          <input type="password" name="password" id="password" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                 formControlName="password">
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input id="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300"
+                   formControlName="remember">
+          </div>
+          <div class="ml-3 text-sm">
+            <label for="remember" class="text-gray-900 ">Rester connecté.e ?</label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600
+        disabled:bg-indigo-300"
+                [disabled]="form.invalid || requestOnGoing"
+        >Connexion</button>
+      </div>
+    </form>
+  </div>
+</div>
