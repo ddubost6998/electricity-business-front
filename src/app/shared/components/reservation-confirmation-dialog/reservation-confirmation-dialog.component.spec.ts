@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ReservationConfirmationDialogComponent } from './reservation-confirmation-dialog.component';
+import {ReservationConfirmationDialogComponent} from './reservation-confirmation-dialog.component';
 
 describe('ReservationConfirmationDialogComponent', () => {
   let component: ReservationConfirmationDialogComponent;
@@ -10,8 +10,8 @@ describe('ReservationConfirmationDialogComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ReservationConfirmationDialogComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ReservationConfirmationDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MapComponent } from './components/map/map.component';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MapComponent} from './components/map/map.component';
 
 
 @NgModule({
@@ -12,4 +11,5 @@ import { MapComponent } from './components/map/map.component';
     CommonModule
   ]
 })
-export class MapModule { }
+export class MapModule {
+}

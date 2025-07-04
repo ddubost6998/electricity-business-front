@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { VerifyEmailComponent } from './verify-email.component';
+import {VerifyEmailComponent} from './verify-email.component';
 
 describe('VerifyEmailComponent', () => {
   let component: VerifyEmailComponent;
@@ -10,8 +10,8 @@ describe('VerifyEmailComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [VerifyEmailComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(VerifyEmailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

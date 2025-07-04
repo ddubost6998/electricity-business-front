@@ -1,0 +1,12 @@
+# Dossiers générés par Node.js et Angular
+node_modules/
+dist/
+.angular/
+
+# Fichiers de configuration spécifiques à l'OS ou à l'IDE
+.git/
+.gitignore
+.vscode/
+npm-debug.log
+yarn-error.log
+.DS_Store

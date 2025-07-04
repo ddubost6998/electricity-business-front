@@ -48,7 +48,6 @@ export namespace User {
       birthdate: user.birthdate.toISOString(),
       isVerified: user.isVerified,
       address: Address.toHttp(user.address)
-
     }
   }
 }

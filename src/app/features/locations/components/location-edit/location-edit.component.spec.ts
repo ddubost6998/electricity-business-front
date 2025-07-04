@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LocationEditComponent } from './location-edit.component';
+import {LocationEditComponent} from './location-edit.component';
 
 describe('LocationEditComponent', () => {
   let component: LocationEditComponent;
@@ -10,8 +10,8 @@ describe('LocationEditComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LocationEditComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(LocationEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

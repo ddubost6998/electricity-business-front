@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LocationAddComponent } from './location-add.component';
+import {LocationAddComponent} from './location-add.component';
 
 describe('LocationAddComponent', () => {
   let component: LocationAddComponent;
@@ -10,8 +10,8 @@ describe('LocationAddComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LocationAddComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(LocationAddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

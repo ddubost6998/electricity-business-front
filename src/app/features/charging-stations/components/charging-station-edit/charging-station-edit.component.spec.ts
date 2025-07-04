@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChargingStationEditComponent } from './charging-station-edit.component';
+import {ChargingStationEditComponent} from './charging-station-edit.component';
 
 describe('ChargingStationEditComponent', () => {
   let component: ChargingStationEditComponent;
@@ -10,8 +10,8 @@ describe('ChargingStationEditComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ChargingStationEditComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ChargingStationEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

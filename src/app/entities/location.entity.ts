@@ -1,4 +1,4 @@
-import { Address, AddressHttp } from './address.entity';
+import {Address, AddressHttp} from './address.entity';
 
 export interface LocationHttp {
   id: number;
@@ -30,12 +30,12 @@ export namespace Location {
     };
   }
 
-  export function toHttp(location: Location) : LocationHttp {
+  export function toHttp(location: Location): LocationHttp {
     return {
       id: location.id,
       name: location.name,
       address: Address.toHttp(location.address),
-      latitude : location.latitude,
+      latitude: location.latitude,
       longitude: location.longitude,
       userId: location.userId
     }

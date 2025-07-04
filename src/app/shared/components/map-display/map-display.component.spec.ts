@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MapDisplayComponent } from './map-display.component';
+import {MapDisplayComponent} from './map-display.component';
 
 describe('MapDisplayComponent', () => {
   let component: MapDisplayComponent;
@@ -10,8 +10,8 @@ describe('MapDisplayComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [MapDisplayComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(MapDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

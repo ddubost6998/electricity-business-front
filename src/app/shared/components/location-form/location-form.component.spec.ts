@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LocationFormComponent } from './location-form.component';
+import {LocationFormComponent} from './location-form.component';
 
 describe('LocationFormComponent', () => {
   let component: LocationFormComponent;
@@ -10,8 +10,8 @@ describe('LocationFormComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LocationFormComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(LocationFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
