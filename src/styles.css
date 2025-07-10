@@ -2,10 +2,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Votre CSS personnalisé DOIT venir APRÈS les directives Tailwind */
+@import 'ngx-toastr/toastr';
 body {
   margin: 0;
   font-family: sans-serif;
 }
 
-/*# sourceMappingURL=styles.css.map */

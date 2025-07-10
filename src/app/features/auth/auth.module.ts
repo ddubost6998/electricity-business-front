@@ -5,6 +5,7 @@ import {RegisterComponent} from './components/register/register.component';
 import {VerifyEmailComponent} from './components/verify-email/verify-email.component';
 import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {RouterLink} from "@angular/router";
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {ReactiveFormsModule} from "@angular/forms";
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ]
 })
 export class AuthModule {

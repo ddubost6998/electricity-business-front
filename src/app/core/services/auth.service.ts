@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {User, UserHttp} from '../../entities/user.entity';
 import {jwtDecode, JwtPayload} from "jwt-decode";
@@ -30,7 +30,7 @@ export class AuthService {
   setToken(token: string, rememberMe: boolean = false): void {
     const decodedToken: JwtPayload = jwtDecode(token);
 
-    const expires = decodedToken.exp ? new Date(decodedToken.exp * 1000) : new Date(Date.now() + 3600 * 1000); // Default 1 hour
+    const expires = decodedToken.exp ? new Date(decodedToken.exp * 1000) : new Date(Date.now() + 3600 * 1000);
 
     document.cookie = `authToken=${token}; expires=${expires.toUTCString()}; path=/; Secure; HttpOnly`;
   }
@@ -52,11 +52,16 @@ export class AuthService {
       );
   }
 
-  register(user: UserHttp): Observable<User> {
-    return this.http.post<UserHttp>(`${this.apiUrl}/register`, user)
+  register(user: UserHttp): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/register`, user)
       .pipe(
-        map(User.fromHttp),
-        catchError(this.handleError)
+        catchError((error: HttpErrorResponse) => {
+          if (error.error instanceof ProgressEvent && error.status >= 200 && error.status < 300) {
+            console.warn('Register successful but response parsing failed. Assuming success:', error);
+            return of({message: "Inscription réussie (réponse du serveur inattendue)"});
+          }
+          return this.handleError(error);
+        })
       );
   }
 
@@ -82,7 +87,7 @@ export class AuthService {
           email: decodedToken.email,
           firstname: decodedToken.firstname,
           lastname: decodedToken.lastname,
-          birthdate: new Date(decodedToken.birthdate),
+          birthdate: new Date(decodedToken.birthdate * 1000),
           isVerified: true,
           address: decodedToken.address,
           phone: decodedToken.phone
@@ -112,25 +117,27 @@ export class AuthService {
     return null;
   }
 
-  private handleError(error: any) {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Erreur: ${error.error.message}`;
     } else {
       errorMessage = `Code d'erreur: ${error.status}, Message: ${error.message}`;
       if (error.status === 400) {
-        errorMessage = "Requête incorrecte. Veuillez vérifier les données saisies.";
+        errorMessage = error.error?.message || "Requête incorrecte. Veuillez vérifier les données saisies.";
       } else if (error.status === 401) {
-        errorMessage = "Identifiants incorrects.";
+        errorMessage = error.error?.message || "Identifiants incorrects.";
       } else if (error.status === 403) {
-        errorMessage = "Accès refusé.";
+        errorMessage = error.error?.message || "Accès refusé.";
       } else if (error.status === 409) {
-        errorMessage = "L'utilisateur existe déja."
+        errorMessage = error.error?.message || "L'utilisateur existe déjà.";
       } else if (error.status === 500) {
-        errorMessage = "Erreur interne du serveur.";
+        errorMessage = error.error?.message || "Erreur interne du serveur.";
+      } else {
+        errorMessage = error.error?.message || `Erreur inattendue (${error.status})`;
       }
     }
     console.error(errorMessage);
-    return throwError(() => errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }

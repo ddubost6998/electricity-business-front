@@ -4,7 +4,6 @@ import {HeaderComponent} from './components/header/header.component';
 import {RouterModule} from '@angular/router';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {LoadingSpinnerComponent} from './components/loading-spinner/loading-spinner.component';
-import {FooterComponent} from './components/footer/footer.component';
 import {AddressFormComponent} from './components/address-form/address-form.component';
 import {LocationFormComponent} from './components/location-form/location-form.component';
 import {
@@ -14,7 +13,7 @@ import {ReservationItemComponent} from './components/reservation-item/reservatio
 import {MapDisplayComponent} from './components/map-display/map-display.component';
 
 @NgModule({
-  declarations: [HeaderComponent, NotFoundComponent, LoadingSpinnerComponent, FooterComponent, AddressFormComponent, LocationFormComponent, ReservationConfirmationDialogComponent, ReservationItemComponent, MapDisplayComponent],
+  declarations: [HeaderComponent, NotFoundComponent, LoadingSpinnerComponent, AddressFormComponent, LocationFormComponent, ReservationConfirmationDialogComponent, ReservationItemComponent, MapDisplayComponent],
   imports: [
     CommonModule,
     RouterModule,

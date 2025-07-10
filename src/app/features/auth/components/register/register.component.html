@@ -68,7 +68,18 @@
                type="password">
         <div *ngIf="f['password'].invalid && f['password'].touched" class="text-red-500 text-xs mt-1">
           <div *ngIf="f['password'].errors?.['required']">Le mot de passe est requis.</div>
-          <div *ngIf="f['password'].errors?.['minlength']">Le mot de passe doit contenir au moins 8 caractères.</div>
+          <div *ngIf="f['password'].errors?.['passwordStrength']">
+            Le mot de passe doit contenir :
+            <ul>
+              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasMinLength">Au moins 12 caractères.</li>
+              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasUpperCase">Au moins une majuscule.</li>
+              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasLowerCase">Au moins une minuscule.</li>
+              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasNumeric">Au moins un chiffre.</li>
+              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasSpecialChar">Au moins un caractère spécial (ex:
+                !:#$%).
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
