@@ -1,10 +1,11 @@
 @charset "UTF-8";
+@import 'ngx-toastr/toastr';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'ngx-toastr/toastr';
-body {
-  margin: 0;
-  font-family: sans-serif;
-}
 
+body {
+    margin: 0;
+    font-family: sans-serif;
+}

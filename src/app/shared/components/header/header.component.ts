@@ -4,38 +4,38 @@ import {Subscription} from 'rxjs';
 import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isAuthenticated = false;
-  isMobileMenuOpen = false;
-  private authSubscription: Subscription | undefined;
+    isAuthenticated = false;
+    isMobileMenuOpen = false;
+    private authSubscription: Subscription | undefined;
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
-
-  ngOnInit(): void {
-    this.authSubscription = this.authService.currentUser.subscribe(
-      (user) => {
-        this.isAuthenticated = !!user;
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    if (this.authSubscription) {
-      this.authSubscription.unsubscribe();
+    constructor(private readonly authService: AuthService, private readonly router: Router) {
     }
-  }
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/']);
-  }
+    ngOnInit(): void {
+        this.authSubscription = this.authService.currentUser.subscribe(
+            (user) => {
+                this.isAuthenticated = !!user;
+            }
+        );
+    }
 
-  toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
-  }
+    ngOnDestroy(): void {
+        if (this.authSubscription) {
+            this.authSubscription.unsubscribe();
+        }
+    }
+
+    logout(): void {
+        this.authService.logout();
+        this.router.navigate(['/']);
+    }
+
+    toggleMobileMenu() {
+        this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    }
 }

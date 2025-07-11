@@ -12,45 +12,45 @@ import {AuthModule} from './features/auth/auth.module';
 import {HomeModule} from './features/home/home.module';
 
 import {ProfileComponent} from './features/user/components/profile/profile.component';
-import {ChargingStationItemComponent} from './components/charging-station-item/charging-station-item.component';
+import {ChargingStationsComponent} from "./charging-stations/charging-stations.component";
 import {ReservationListComponent} from './features/reservation/components/reservation-list/reservation-list.component';
 import {
-  ReservationDetailsComponent
+    ReservationDetailsComponent
 } from './features/reservation/components/reservation-details/reservation-details.component';
 import {
-  ReservationCreateComponent
+    ReservationCreateComponent
 } from './features/reservation/components/reservation-create/reservation-create.component';
 import {FooterComponent} from "./shared/components/footer/footer.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProfileComponent,
-    ChargingStationItemComponent,
-    ReservationListComponent,
-    ReservationDetailsComponent,
-    ReservationCreateComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    CoreModule,
-    SharedModule,
-    AuthModule,
-    HomeModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-      progressBar: true,
-      closeButton: true,
-    }),
-    FooterComponent,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+    bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        ProfileComponent,
+        ChargingStationsComponent,
+        ReservationListComponent,
+        ReservationDetailsComponent,
+        ReservationCreateComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        CoreModule,
+        SharedModule,
+        AuthModule,
+        HomeModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 5000,
+            positionClass: 'toast-top-right',
+            preventDuplicates: true,
+            progressBar: true,
+            closeButton: true,
+        }),
+        FooterComponent,
+    ],
+    providers: [],
 })
 export class AppModule {
 }
