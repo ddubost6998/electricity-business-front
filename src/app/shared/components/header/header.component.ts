@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
@@ -13,8 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isMobileMenuOpen = false;
   private authSubscription: Subscription | undefined;
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.authSubscription = this.authService.currentUser.subscribe(
@@ -35,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
-  toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  toggleMobileMenu(){
+    this.isMobileMenuOpen = !this.isMobileMenuOpen
   }
 }

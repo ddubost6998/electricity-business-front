@@ -1,53 +1,42 @@
-import {Address, AddressHttp} from "./address.entity";
-
 export interface UserHttp {
   id: number;
   email: string;
-  password?: string;
+  password: string;
   firstname: string;
   lastname: string;
-  phone?: string | null;
-  birthdate: string;
-  verificationCode?: string | null;
+  phone: string;
+  birthdate: Date;
+  verificationCode: string;
   isVerified: boolean;
-  address: AddressHttp;
+  address: string;
 }
 
 export interface User {
   id: number;
   email: string;
+  password: string;
   firstname: string;
   lastname: string;
-  phone?: string | null;
+  phone: string;
   birthdate: Date;
+  verificationCode: string;
   isVerified: boolean;
-  address: Address;
+  address: string;
 }
 
 export namespace User {
-  export function fromHttp(userHttp: UserHttp): User {
-    return {
-      id: userHttp.id,
-      email: userHttp.email,
-      firstname: userHttp.firstname,
-      lastname: userHttp.lastname,
-      phone: userHttp.phone,
-      birthdate: new Date(userHttp.birthdate),
-      isVerified: userHttp.isVerified,
-      address: Address.fromHttp(userHttp.address),
-    };
-  }
-
-  export function toHttp(user: User): UserHttp {
+  export function fromHttp(user: UserHttp): User {
     return {
       id: user.id,
       email: user.email,
+      password: user.password,
       firstname: user.firstname,
       lastname: user.lastname,
       phone: user.phone,
-      birthdate: user.birthdate.toISOString(),
+      birthdate: user.birthdate,
+      verificationCode: user.verificationCode,
       isVerified: user.isVerified,
-      address: Address.toHttp(user.address)
-    }
+      address: user.address,
+    };
   }
 }

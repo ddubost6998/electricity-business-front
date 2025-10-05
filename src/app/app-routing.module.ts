@@ -1,23 +1,14 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from './features/auth/components/login/login.component';
-import {RegisterComponent} from './features/auth/components/register/register.component';
-import {NotFoundComponent} from './shared/components/not-found/not-found.component';
-import {HomeComponent} from "./features/home/components/home/home.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'auth/login', component: LoginComponent},
-  {path: 'auth/register', component: RegisterComponent},
-  {path: 'not-found', component: NotFoundComponent},
-  {path: '**', redirectTo: '/not-found'},
-];
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+
+  { path: '**', redirectTo: '' }, // Filet de sécurité '**'
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-
-export class AppRoutingModule {
-}
+export class AppRoutingModule { }
