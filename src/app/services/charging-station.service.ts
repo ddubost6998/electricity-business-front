@@ -9,9 +9,9 @@ import {environment} from "../../environments/environment";
     providedIn: 'root',
 })
 export class ChargingStationService {
-    private apiUrl = environment.apiUrl + '/charging-stations';
+    private readonly apiUrl = environment.apiUrl + '/charging-stations';
 
-    constructor(private http: HttpClient) {
+    constructor(private readonly http: HttpClient) {
     }
 
     getChargingStations(): Observable<ChargingStation[]> {
@@ -26,7 +26,7 @@ export class ChargingStationService {
             errorMessage = `Erreur: ${error.error.message}`;
         } else {
             errorMessage = `Code d'erreur: ${error.status}, Message: ${error.message}`;
-            if (error.error && error.error.message) {
+            if (error.error?.message) {
                 errorMessage = error.error.message;
             }
         }
