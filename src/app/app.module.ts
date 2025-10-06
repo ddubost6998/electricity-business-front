@@ -12,7 +12,6 @@ import {AuthModule} from './features/auth/auth.module';
 import {HomeModule} from './features/home/home.module';
 
 import {ProfileComponent} from './features/user/components/profile/profile.component';
-import {ChargingStationsComponent} from "./charging-stations/charging-stations.component";
 import {ReservationListComponent} from './features/reservation/components/reservation-list/reservation-list.component';
 import {
     ReservationDetailsComponent
@@ -27,7 +26,6 @@ import {FooterComponent} from "./shared/components/footer/footer.component";
     declarations: [
         AppComponent,
         ProfileComponent,
-        ChargingStationsComponent,
         ReservationListComponent,
         ReservationDetailsComponent,
         ReservationCreateComponent

@@ -1,178 +1,154 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="w-full max-w-lg p-8 bg-white rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Inscription</h2>
+    <div class="w-full max-w-lg p-8 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Inscription</h2>
 
-    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname">Prénom:</label>
-          <input [ngClass]="{ 'border-red-500': f['firstname'].invalid && f['firstname'].touched }"
-                 class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                 formControlName="firstname"
-                 id="firstname"
-                 type="text">
-          <div *ngIf="f['firstname'].invalid && f['firstname'].touched" class="text-red-500 text-xs mt-1">
-            <div *ngIf="f['firstname'].errors?.['required']">Le prénom est requis.</div>
-            <div *ngIf="f['firstname'].errors?.['maxlength']">Le prénom ne doit pas dépasser 50 caractères.</div>
+        <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Prénom -->
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="firstname">Prénom:</label>
+                    <input [ngClass]="{'border-red-500': f['firstname'].invalid && f['firstname'].touched}" aria-invalid="grammar"
+                           class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                           formControlName="firstname"
+                           id="firstname">
+                    <div *ngIf="f['firstname'].invalid && f['firstname'].touched" class="text-red-500 text-xs mt-1">
+                        <div *ngIf="f['firstname'].errors?.['required']">Le prénom est requis.</div>
+                        <div *ngIf="f['firstname'].errors?.['maxlength']">Maximum 50 caractères.</div>
+                    </div>
+                </div>
 
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname">Nom:</label>
-          <input [ngClass]="{ 'border-red-500': f['lastname'].invalid && f['lastname'].touched }"
-                 class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                 formControlName="lastname"
-                 id="lastname"
-                 type="text">
-          <div *ngIf="f['lastname'].invalid && f['lastname'].touched" class="text-red-500 text-xs mt-1">
-            <div *ngIf="f['lastname'].errors?.['required']">Le nom est requis.</div>
-            <div *ngIf="f['lastname'].errors?.['maxlength']">Le nom ne doit pas dépasser 50 caractères.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email:</label>
-        <input [ngClass]="{ 'border-red-500': f['email'].invalid && f['email'].touched }"
-               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-               formControlName="email"
-               id="email"
-               type="email">
-        <div *ngIf="f['email'].invalid && f['email'].touched" class="text-red-500 text-xs mt-1">
-          <div *ngIf="f['email'].errors?.['required']">L'email est requis.</div>
-          <div *ngIf="f['email'].errors?.['email']">Format d'email invalide.</div>
-          <div *ngIf="f['email'].errors?.['maxlength']">L'email ne doit pas dépasser 100 caractères.</div>
-        </div>
-      </div>
-
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Téléphone:</label>
-        <input [ngClass]="{ 'border-red-500': f['phone'].invalid && f['phone'].touched }"
-               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-               formControlName="phone"
-               id="phone"
-               type="tel">
-        <div *ngIf="f['phone'].invalid && f['phone'].touched" class="text-red-500 text-xs mt-1">
-          <div *ngIf="f['phone'].errors?.['required']">Le numéro de téléphone est requis.</div>
-          <div *ngIf="f['phone'].errors?.['pattern']">Le numéro de téléphone est invalide.</div>
-        </div>
-      </div>
-
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe:</label>
-        <input [ngClass]="{ 'border-red-500': f['password'].invalid && f['password'].touched }"
-               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-               formControlName="password"
-               id="password"
-               type="password">
-        <div *ngIf="f['password'].invalid && f['password'].touched" class="text-red-500 text-xs mt-1">
-          <div *ngIf="f['password'].errors?.['required']">Le mot de passe est requis.</div>
-          <div *ngIf="f['password'].errors?.['passwordStrength']">
-            Le mot de passe doit contenir :
-            <ul>
-              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasMinLength">Au moins 12 caractères.</li>
-              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasUpperCase">Au moins une majuscule.</li>
-              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasLowerCase">Au moins une minuscule.</li>
-              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasNumeric">Au moins un chiffre.</li>
-              <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasSpecialChar">Au moins un caractère spécial (ex:
-                !:#$%).
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPassword">Confirmer Mot de passe:</label>
-        <input [ngClass]="{ 'border-red-500': f['confirmPassword'].invalid && f['confirmPassword'].touched }"
-               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-               formControlName="confirmPassword"
-               id="confirmPassword"
-               type="password">
-        <div *ngIf="f['confirmPassword'].invalid && f['confirmPassword'].touched" class="text-red-500 text-xs mt-1">
-          <div *ngIf="f['confirmPassword'].errors?.['required']">Le mot de passe de confirmation est requis.</div>
-        </div>
-        <div *ngIf="f['confirmPassword'].dirty && registerForm.errors?.['matching']" class="text-red-500 text-xs mt-1">
-          Les mots de passes ne correspondent pas.
-        </div>
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="birthdate">Date de Naissance:</label>
-        <input [ngClass]="{ 'border-red-500': f['birthdate'].invalid && f['birthdate'].touched }"
-               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-               formControlName="birthdate"
-               id="birthdate"
-               type="date">
-        <div *ngIf="f['birthdate'].invalid && f['birthdate'].touched" class="text-red-500 text-xs mt-1">
-          <div *ngIf="f['birthdate'].errors?.['required']">La date de naissance est requise.</div>
-        </div>
-      </div>
-
-      <div formGroupName="address">
-        <h3 class="text-lg font-bold mb-2">Adresse</h3>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="street">Rue:</label>
-          <input
-            [ngClass]="{ 'border-red-500': addressForm.controls['street'].invalid && addressForm.controls['street'].touched }"
-            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            formControlName="street"
-            id="street"
-            type="text">
-
-          <div *ngIf="addressForm.controls['street'].invalid && addressForm.controls['street'].touched"
-               class="text-red-500 text-xs">
-            <div *ngIf="addressForm.controls['street'].errors?.['required']">La rue est requise</div>
-            <div *ngIf="addressForm.controls['street'].errors?.['maxlength']">La rue doit avoir maximum 255 caractères
+                <!-- Nom -->
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="lastname">Nom:</label>
+                    <input [ngClass]="{'border-red-500': f['lastname'].invalid && f['lastname'].touched}" aria-invalid="false"
+                           class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                           formControlName="lastname"
+                           id="lastname">
+                    <div *ngIf="f['lastname'].invalid && f['lastname'].touched" class="text-red-500 text-xs mt-1">
+                        <div *ngIf="f['lastname'].errors?.['required']">Le nom est requis.</div>
+                        <div *ngIf="f['lastname'].errors?.['maxlength']">Maximum 50 caractères.</div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="city">Ville:</label>
-          <input
-            [ngClass]="{ 'border-red-500': addressForm.controls['city'].invalid && addressForm.controls['city'].touched }"
-            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            formControlName="city"
-            id="city"
-            type="text">
-          <div *ngIf="addressForm.controls['city'].invalid && addressForm.controls['city'].touched"
-               class="text-red-500 text-xs">
-            <div *ngIf="addressForm.controls['city'].errors?.['required']">La ville est requise</div>
-            <div *ngIf="addressForm.controls['city'].errors?.['maxlength']">La ville doit avoir maximum 100 caractères
+
+            <!-- Email -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email:</label>
+                <input [ngClass]="{'border-red-500': f['email'].invalid && f['email'].touched}" aria-invalid="spelling" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                       formControlName="email"
+                       id="email"
+                       type="email">
+                <div *ngIf="f['email'].invalid && f['email'].touched" class="text-red-500 text-xs mt-1">
+                    <div *ngIf="f['email'].errors?.['required']">L'email est requis.</div>
+                    <div *ngIf="f['email'].errors?.['email']">Email invalide.</div>
+                    <div *ngIf="f['email'].errors?.['maxlength']">Maximum 100 caractères.</div>
+                </div>
             </div>
-          </div>
-        </div>
 
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="zipcode">Code Postal:</label>
-          <input
-            [ngClass]="{ 'border-red-500': addressForm.controls['zipcode'].invalid && addressForm.controls['zipcode'].touched }"
-            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-            formControlName="zipcode"
-            id="zipcode"
-            type="text">
-          <div *ngIf="addressForm.controls['zipcode'].invalid && addressForm.controls['zipcode'].touched"
-               class="text-red-500 text-xs">
-            <div *ngIf="addressForm.controls['zipcode'].errors?.['required']">Le code postal est requis</div>
-            <div *ngIf="addressForm.controls['zipcode'].errors?.['maxlength']">Le code postal doit avoir maximum 10
-              caractères
+            <!-- Téléphone -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">Téléphone:</label>
+                <input [ngClass]="{'border-red-500': f['phone'].invalid && f['phone'].touched}" aria-invalid="spelling" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                       formControlName="phone"
+                       id="phone"
+                       type="tel">
+                <div *ngIf="f['phone'].invalid && f['phone'].touched" class="text-red-500 text-xs mt-1">
+                    <div *ngIf="f['phone'].errors?.['required']">Le téléphone est requis.</div>
+                    <div *ngIf="f['phone'].errors?.['pattern']">Format invalide.</div>
+                </div>
             </div>
-          </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe:</label>
+                <input [ngClass]="{'border-red-500': f['password'].invalid && f['password'].touched}" aria-invalid="false" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                       formControlName="password"
+                       id="password"
+                       type="password">
+                <div *ngIf="f['password'].invalid && f['password'].touched" class="text-red-500 text-xs mt-1">
+                    <div *ngIf="f['password'].errors?.['required']">Mot de passe requis.</div>
+                    <div *ngIf="f['password'].errors?.['passwordStrength']">
+                        Le mot de passe doit contenir au moins :
+                        <ul>
+                            <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasMinLength">12 caractères</li>
+                            <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasUpperCase">1 majuscule</li>
+                            <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasLowerCase">1 minuscule</li>
+                            <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasNumeric">1 chiffre</li>
+                            <li *ngIf="!f['password'].errors?.['passwordStrength']?.hasSpecialChar">1 caractère
+                                spécial
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPassword">Confirmer mot de
+                    passe:</label>
+                <input [ngClass]="{'border-red-500': f['confirmPassword'].invalid && f['confirmPassword'].touched}" aria-invalid="false" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                       formControlName="confirmPassword"
+                       id="confirmPassword"
+                       type="password">
+                <div *ngIf="f['confirmPassword'].dirty && registerForm.errors?.['matching']"
+                     class="text-red-500 text-xs mt-1">
+                    Les mots de passe ne correspondent pas.
+                </div>
+            </div>
+
+            <!-- Birthdate -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="birthdate">Date de naissance:</label>
+                <input [ngClass]="{'border-red-500': f['birthdate'].invalid && f['birthdate'].touched}" aria-invalid="false" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                       formControlName="birthdate"
+                       id="birthdate"
+                       type="date">
+                <div *ngIf="f['birthdate'].invalid && f['birthdate'].touched" class="text-red-500 text-xs mt-1">
+                    <div *ngIf="f['birthdate'].errors?.['required']">Date de naissance requise.</div>
+                </div>
+            </div>
+
+            <!-- Adresse -->
+            <div formGroupName="address">
+                <h3 class="text-lg font-bold mb-2">Adresse</h3>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="street">Rue:</label>
+                    <input [ngClass]="{'border-red-500': addressForm.controls['street'].invalid && addressForm.controls['street'].touched}" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" formControlName="street"
+                           id="street"
+                           type="text">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="city">Ville:</label>
+                    <input [ngClass]="{'border-red-500': addressForm.controls['city'].invalid && addressForm.controls['city'].touched}" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" formControlName="city"
+                           id="city"
+                           type="text">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="zipcode">Code Postal:</label>
+                    <input [ngClass]="{'border-red-500': addressForm.controls['zipcode'].invalid && addressForm.controls['zipcode'].touched}" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300" formControlName="zipcode"
+                           id="zipcode"
+                           type="text">
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <button [disabled]="registerForm.invalid || loading"
+                    class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                <span *ngIf="loading">Enregistrement...</span>
+                <span *ngIf="!loading">S'inscrire</span>
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            Déjà un compte ? <a class="text-blue-500 hover:underline" routerLink="/auth/login">Connectez-vous</a>
         </div>
-      </div>
 
-      <button [disabled]="registerForm.invalid"
-              class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
-              type="submit">
-        S'inscrire
-      </button>
-    </form>
-
-    <div class="mt-4 text-center">
-      Déjà un compte ? <a class="text-blue-500 hover:underline" routerLink="/auth/login">Connectez-vous</a>
+        <div *ngIf="errorMessage" class="text-red-500 mt-4 text-center">
+            {{ errorMessage }}
+        </div>
     </div>
-    <div *ngIf="errorMessage" class="text-red-500 mt-4 text-center">
-      {{ errorMessage }}
-    </div>
-  </div>
 </div>
