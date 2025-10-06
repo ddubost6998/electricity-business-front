@@ -1,18 +1,25 @@
 import {Component, OnInit} from '@angular/core';
+import {RouterLink} from "@angular/router";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  standalone: true,
-  styleUrls: ['./footer.component.scss']
+    selector: 'app-footer',
+    templateUrl: './footer.component.html',
+    standalone: true,
+    imports: [
+        RouterLink,
+        NgOptimizedImage
+    ],
+    styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-  currentYear: number;
+    currentYear: number;
 
-  constructor() {
+    constructor() {
 
-  }
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        throw new Error("Method not implemented.");
+    }
 }
