@@ -1,51 +1,61 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Connexion</h2>
+<div class="flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+        <h2 class="text-[32px] font-medium mb-6 text-center tracking-tight text-black">Connexion</h2>
 
-    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email:</label>
-        <input [attr.aria-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched ? 'true' : 'false'"
-               [ngClass]="{'border-red-500': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
-               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-               formControlName="email"
-               id="email"
-               type="email">
-        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
-             class="text-red-500 text-xs mt-1" role="alert">
-          <div *ngIf="loginForm.get('email')?.errors?.['required']">Email requis.</div>
-          <div *ngIf="loginForm.get('email')?.errors?.['email']">Format d'email invalide.</div>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+            <div class="mb-4">
+                <label class="block text-black text-sm font-normal mb-2" for="email">Email:</label>
+                <input
+                    [attr.aria-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched ? 'true' : 'false'"
+                    [ngClass]="{'border-red-500': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
+                    class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-main focus:border-gray-50"
+                    formControlName="email"
+                    id="email"
+                    type="email">
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+                     class="text-red-500 text-xs mt-1" role="alert">
+                    <div *ngIf="loginForm.get('email')?.errors?.['required']">Email requis.</div>
+                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Format d'email invalide.</div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-black text-sm font-normal mb-2" for="password">Mot de passe:</label>
+                <input
+                    [attr.aria-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? 'true' : 'false'"
+                    [ngClass]="{'border-red-500' : loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+                    class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-main focus:border-gray-50"
+                    formControlName="password"
+                    id="password"
+                    type="password">
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                     class="text-red-500 text-xs" role="alert">
+                    <div *ngIf="loginForm.get('password')?.errors?.['required']">Mot de passe requis.</div>
+                </div>
+
+                <div class="text-right mt-2">
+                    <a class="text-sm text-gray-800 hover:text-gray-800 hover:underline transition duration-150"
+                       routerLink="/auth/forgot-password">
+                        Mot de passe oublié ?
+                    </a>
+                </div>
+            </div>
+
+            <button [disabled]="loginForm.invalid || isLoading"
+                    class="w-full bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed transition duration-150"
+                    type="submit">
+                <span *ngIf="!isLoading">Se connecter</span>
+                <span *ngIf="isLoading">Connexion en cours...</span>
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            Pas encore de compte ? <a class="text-blue-600 hover:text-main-dark hover:underline"
+                                      routerLink="/auth/register">Inscrivez-vous</a>
         </div>
-      </div>
 
-      <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Mot de passe:</label>
-        <input [attr.aria-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched ? 'true' : 'false'"
-               [ngClass]="{'border-red-500' : loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
-               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-               formControlName="password"
-               id="password"
-               type="password">
-        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-             class="text-red-500 text-xs" role="alert">
-          <div *ngIf="loginForm.get('password')?.errors?.['required']">Mot de passe requis.</div>
+        <div *ngIf="errorMessage" class="text-red-500 mt-4 text-center">
+            {{ errorMessage }}
         </div>
-      </div>
-
-      <button [disabled]="loginForm.invalid || isLoading"
-              class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
-              type="submit">
-        <span *ngIf="!isLoading">Se connecter</span>
-        <span *ngIf="isLoading">Connexion en cours...</span>
-      </button>
-    </form>
-
-    <div class="mt-4 text-center">
-      Pas encore de compte ? <a class="text-blue-500 hover:underline" routerLink="/auth/register">Inscrivez-vous</a>
     </div>
-
-    <div *ngIf="errorMessage" class="text-red-500 mt-4 text-center">
-      {{ errorMessage }}
-    </div>
-  </div>
 </div>
