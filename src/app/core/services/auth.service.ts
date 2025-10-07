@@ -85,7 +85,6 @@ export class AuthService {
 
             return {
                 password: '', verificationCode: '',
-                id: Number(decoded.sub),
                 email: decoded.email,
                 firstname: decoded.firstname,
                 lastname: decoded.lastname,

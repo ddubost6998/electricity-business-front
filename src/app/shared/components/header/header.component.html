@@ -1,53 +1,71 @@
 <nav class="bg-white shadow-md py-4">
-  <div class="container mx-auto px-4 flex items-center justify-between flex-wrap">
-    <div class="flex items-center flex-shrink-0 text-gray-800 mr-6">
-      <a routerLink="/" class="flex items-center">
-        <img src="assets/logo.png" alt="Electricity Business Logo" class="h-8 mr-2" /> <span class="font-semibold text-xl tracking-tight">Electricity Business</span>
-      </a>
-    </div>
+    <div class="container mx-auto px-4 flex items-center justify-between flex-wrap">
+        <div class="flex items-center flex-shrink-0 text-gray-800 mr-6">
+            <a class="flex items-center" routerLink="/">
+                <img alt="Electricity Business Logo" class="h-8 mr-2" src="assets/logo_text_ev_station.svg"/> <span
+                class="font-semibold text-xl tracking-tight"></span>
+            </a>
+        </div>
 
-    <div class="block lg:hidden">
-      <button (click)="isMobileMenuOpen = !isMobileMenuOpen" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-gray-800">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
-      </button>
-    </div>
+        <div class="block lg:hidden">
+            <button (click)="isMobileMenuOpen = !isMobileMenuOpen"
+                    class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-gray-800">
+                <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>
+                    Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </button>
+        </div>
 
-    <div [ngClass]="{'hidden': !isMobileMenuOpen, 'block': isMobileMenuOpen}" class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-      <div class="text-sm lg:flex-grow">
-        <a routerLink="/home" routerLinkActive="text-blue-500" [routerLinkActiveOptions]="{exact: true}" class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4">
-          Accueil
-        </a>
-        <a routerLink="/map" routerLinkActive="text-blue-500" class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4">
-          Carte
-        </a>
-        <ng-container *ngIf="isAuthenticated">
-          <a routerLink="/locations" routerLinkActive="text-blue-500" class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4">
-            Mes Lieux
-          </a>
-          <a routerLink="/reservations" routerLinkActive="text-blue-500" class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4">
-            Mes Réservations
-          </a>
-          <a routerLink="/user/profile" routerLinkActive="text-blue-500" class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4">
-            Profil
-          </a>
-        </ng-container>
-      </div>
+        <div [ngClass]="{'hidden': !isMobileMenuOpen, 'block': isMobileMenuOpen}"
+             class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+            <div class="text-sm lg:flex-grow">
+                <a [routerLinkActiveOptions]="{exact: true}"
+                   class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4" routerLink="/home"
+                   routerLinkActive="text-blue-500">
+                    Accueil
+                </a>
+                <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4" routerLink="/map"
+                   routerLinkActive="text-blue-500">
+                    Carte
+                </a>
+                <ng-container *ngIf="isAuthenticated">
+                    <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4"
+                       routerLink="/locations"
+                       routerLinkActive="text-blue-500">
+                        Mes Lieux
+                    </a>
+                    <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4"
+                       routerLink="/reservations"
+                       routerLinkActive="text-blue-500">
+                        Mes Réservations
+                    </a>
+                    <a class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-blue-500 mr-4"
+                       routerLink="/user/profile"
+                       routerLinkActive="text-blue-500">
+                        Profil
+                    </a>
+                </ng-container>
+            </div>
 
-      <div>
-        <ng-container *ngIf="!isAuthenticated; else loggedIn">
-          <a routerLink="/auth/login" class="inline-block text-sm px-4 py-2 leading-none border rounded text-blue-500 border-blue-500 hover:border-transparent hover:text-white hover:bg-blue-500 mt-4 lg:mt-0">
-            Connexion
-          </a>
-          <a routerLink="/auth/register" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-800 border-gray-300 hover:border-transparent hover:text-white hover:bg-gray-800 mt-4 lg:mt-0 ml-2">
-            Inscription
-          </a>
-        </ng-container>
-        <ng-template #loggedIn>
-          <button (click)="logout()" class="inline-block text-sm px-4 py-2 leading-none border rounded text-red-500 border-red-500 hover:border-transparent hover:text-white hover:bg-red-500 mt-4 lg:mt-0">
-            Déconnexion
-          </button>
-        </ng-template>
-      </div>
+            <div>
+                <ng-container *ngIf="!isAuthenticated; else loggedIn">
+                    <a class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-800 hover:text-white hover:border-transparent hover:bg-blue-500 mt-4 lg:mt-0"
+                       routerLink="/auth/login">
+                        Connexion
+                    </a>
+                    <a class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-800 hover:text-white hover:border-transparent hover:bg-blue-500 mt-4 lg:mt-0 ml-2"
+                       routerLink="/auth/register">
+                        Inscription
+                    </a>
+                </ng-container>
+                <ng-template #loggedIn>
+                    <button (click)="logout()"
+                            class="inline-block text-sm px-4 py-2 leading-none border rounded text-red-500 border-red-500 hover:border-transparent hover:text-white hover:bg-red-500 mt-4 lg:mt-0">
+                        Déconnexion
+                    </button>
+                </ng-template>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>

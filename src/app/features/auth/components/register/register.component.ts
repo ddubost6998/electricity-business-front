@@ -75,14 +75,13 @@ export class RegisterComponent implements OnInit {
             const formValue = this.registerForm.value;
 
             const user: UserHttp = {
-                id: this.registerForm.controls['id'].value,
                 firstname: formValue.firstname,
                 lastname: formValue.lastname,
                 email: formValue.email,
                 phone: formValue.phone,
                 password: formValue.password,
                 birthdate: new Date(formValue.birthdate),
-                verificationCode: '', // serveur va gérer
+                verificationCode: '', // gérer côté serveur
                 isVerified: false,
                 address:
                     `${formValue.address.street},
@@ -96,9 +95,11 @@ export class RegisterComponent implements OnInit {
                     console.log('Registration successful:', response.message);
                     this.router.navigate(['/auth/login']);
                 },
-                error: (error) => {
-                    this.errorMessage = error.message;
+                error: (err) => {
                     this.loading = false;
+                    if (err.error?.message) this.errorMessage = err.error.message;
+                    else if (err.message) this.errorMessage = err.message;
+                    else this.errorMessage = 'Une erreur inattendue est survenue.';
                 },
                 complete: () => this.loading = false
             });
